@@ -1,0 +1,38 @@
+body { 
+  background: url(../images/las-vegas-strip.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.screen-container{
+	background: #030371;
+}
+.screen-item{
+	background: green;
+	height: 70px;
+	width: 75px;
+  border: solid darkslategrey;
+  border-radius: 8px
+}
+#screen-footer{
+	text-align: center;
+}
+#hint{
+	background: red;
+}
+#wheel {
+  height: 400px;
+  width: 400px;
+  position: relative;
+  right: 19%;
+  bottom: 59px;
+}
+#wheel-img{
+  height: inherit;
+  width: inherit;
+}
+.letter-button{
+	color: white;
+	background-color: black;
+}
