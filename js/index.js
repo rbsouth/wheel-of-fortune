@@ -1,29 +1,123 @@
 class Screen{
 	constructor(){
-		this.phrases = [];
-		this.currentPhrase = currentPhrase
+		this.phrases = ['YOU ARE COOL', 'YEAH I AM'];
+		this.currentPhrase = '';
 	}
 	setPhrase(){
 		this.currentPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)];
-		return
+		for (var i = 0; i < this.currentPhrase.length; i++) {
+			console.log(this.currentPhrase[i]);
+			$('.phrase-row').append('<div id="' + this.currentPhrase[i] + '" data-letter="' + this.currentPhrase[i] + '" class="col-sm-1 letter-display">' + this.currentPhrase[i] + '</div>');
+			//$('.letter-space').each(("", "white");
+			//'<p data-letter="' + this.currentPhrase[i] + '">' + this.currentPhrase[i] + '</p>'
+		}
 	}
-}
-
-class Buttons{
-	constructor(){
-		this.alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+	checkLetter(letter){
+		$('.letter-display').each(function(){
+			if ($(this).data('letter') === letter) {
+				$(this).css("text-indent", "0px");
+				$(this).css("background", "green");
+			}
+		});
 	}
+	guessPhrase(){
+		var make_guess = prompt("Turn on caps lock. Make your guess.", "");
+		if (make_guess == this.currentPhrase) {
+	    alert("You are correct!");
+	    Cookies.set('total-money', "1000000");
+		} else if (make_guess == null) {
+				alert("Coward");
+				}	else {
+			    alert("WRONG!");
+			    Cookies.set('total-money', "-1000000");
+		}
+	}
+	
 }
 
 class Wheel{
 	constructor(){
-		this.moneyAmount = [0, 200, 300, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 5000]; //cookies to save
+		this.moneyAmounts = [0, 'bankrupt', 200, 300, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 5000]; //cookies to save
+		var total = Cookies.get('total-money');
+		this.totalMoney = total ? JSON.parse(total) : 1000;
+		var turns = Cookies.get('turns');
+		this.turnsTaken = turns ? JSON.parse(turns) : 0
 	}
 	selectAmount(){
-
-		return
+		var random_amount = this.moneyAmounts[Math.floor(Math.random() * this.moneyAmounts.length)];
+		if (random_amount === 'bankrupt'){
+			this.totalMoney = Cookies.set('total-money', JSON.stringify(0));
+			alert("Bankrupt!");
+		} else {
+				this.totalMoney =	random_amount + this.totalMoney
+				Cookies.set('total-money', JSON.stringify(this.totalMoney));
+			}
 	}
 	setTotalAmount(){
-		Cookies
+		var total = Cookies.get('total-money');
+		this.totalMoney = total ? JSON.parse(total) : 1000;
+		//JSON.parse(Cookies.get('total-money'));
+		$('#balance').html('Money: $' + this.totalMoney + '');
+		Cookies.set('total-money', JSON.stringify(this.totalMoney));
+	}
+	subtractForGuess(){
+		this.totalMoney = this.totalMoney - 100
+		Cookies.set('total-money', JSON.stringify(this.totalMoney));
+	}
+	checkAmount(){
+		//this.totalMoney
+		if (this.totalMoney < 0){
+			alert("You owe us. Get out.");
+			Cookies.set('total-money', '1000');
+			$('html').empty();
+		} else if (this.totalMoney >= 5000){
+				alert("You Win! Give us your credit card information for a new car!");
+				Cookies.set('total-money', '1000');
+			}
+	}
+	changeTurns(){
+		if (this.turnsTaken > 5){
+			$('.active').removeClass("inactive").addClass("active");
+			Cookies.set('turns', '0');
+			} else{
+					this.turnsTaken++
+					Cookies.set('turns', JSON.stringify(this.turnsTaken));
+			}
+			$('.turns-left').html('Turns to spin: ' + 5 - this.turnsTaken +'')
 	}
 }
+
+$(function(){
+	var screen = new Screen();
+	var wheel = new Wheel();
+	wheel.setTotalAmount();
+	screen.setPhrase();
+	screen.checkLetter(' ');
+
+	var letter_button = $('.letter-button');
+	letter_button.on('click', function(){
+		screen.checkLetter($(this).data('letter'));
+		wheel.subtractForGuess();
+		wheel.setTotalAmount();
+		wheel.checkAmount();
+		wheel.changeTurns();
+	});
+
+	var spin_button = $('.active');
+	spin_button.on('click', function(){
+		if (!$(this).hasClass("inactive")){
+			wheel.selectAmount();
+			wheel.setTotalAmount();
+			wheel.checkAmount();
+			$(this).removeClass("active").addClass("inactive");
+		}
+	});
+
+	var guess_button = $('.guess')
+	guess_button.on('click', function(){
+		screen.guessPhrase();
+		wheel.setTotalAmount();
+		wheel.checkAmount();
+	});
+		
+});

@@ -4,14 +4,40 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/index.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="js/cookies.js"></script>
-		<script src="js/index.js"></script>
 		<title>Wheel of Fortune</title>
 	</head>
 	<body>
 		<h1>Wheel of fortune</h1>
-		<div id="screen-wrapper">
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Rules
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Wheel of fortune</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Green squares are spaces or solved.
+        Get $5000 to win.
+        Drop below $0, you lose. 
+        You may spin once every 5 guesses.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+		<!-- <div id="screen-wrapper">
 			<div id="screen">
 				<div class="container screen-container">
 					<div class="row justify-content-sm-center">
@@ -60,6 +86,13 @@
 					</div>
 				</div>
 			</div>
+		</div> -->
+		<div id="phrase-display">
+			<div class="container">
+				<div class="row justify-content-sm-center phrase-row">
+					
+				</div>
+			</div>
 		</div>
 		<div id="screen-footer-wrapper">
 			<div id="screen-footer">
@@ -70,50 +103,71 @@
 			<div id="alphabet">
 				<div class="container">
 					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 letter-button">A</div>
-						<div class="col-sm-1 letter-button">B</div>
-						<div class="col-sm-1 letter-button">C</div>
-						<div class="col-sm-1 letter-button">D</div>
-						<div class="col-sm-1 letter-button">E</div>
-						<div class="col-sm-1 letter-button">F</div>
-						<div class="col-sm-1 letter-button">G</div>
-						<div class="col-sm-1 letter-button">H</div>
+						<div data-letter="A" class="col-sm-1 letter-button">A</div>
+						<div data-letter="B" class="col-sm-1 letter-button">B</div>
+						<div data-letter="C" class="col-sm-1 letter-button">C</div>
+						<div data-letter="D" class="col-sm-1 letter-button">D</div>
+						<div data-letter="E" class="col-sm-1 letter-button">E</div>
+						<div data-letter="F" class="col-sm-1 letter-button">F</div>
+						<div data-letter="G" class="col-sm-1 letter-button">G</div>
+						<div data-letter="H" class="col-sm-1 letter-button">H</div>
 					</div>
 					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 letter-button">I</div>
-						<div class="col-sm-1 letter-button">J</div>
-						<div class="col-sm-1 letter-button">K</div>
-						<div class="col-sm-1 letter-button">L</div>
-						<div class="col-sm-1 letter-button">M</div>
-						<div class="col-sm-1 letter-button">N</div>
-						<div class="col-sm-1 letter-button">O</div>
-						<div class="col-sm-1 letter-button">P</div>
-						<div class="col-sm-1 letter-button">Q</div>
-						<div class="col-sm-1 letter-button">R</div>
+						<div data-letter="I" class="col-sm-1 letter-button">I</div>
+						<div data-letter="J" class="col-sm-1 letter-button">J</div>
+						<div data-letter="K" class="col-sm-1 letter-button">K</div>
+						<div data-letter="L" class="col-sm-1 letter-button">L</div>
+						<div data-letter="M" class="col-sm-1 letter-button">M</div>
+						<div data-letter="N" class="col-sm-1 letter-button">N</div>
+						<div data-letter="O" class="col-sm-1 letter-button">O</div>
+						<div data-letter="P" class="col-sm-1 letter-button">P</div>
+						<div data-letter="Q" class="col-sm-1 letter-button">Q</div>
+						<div data-letter="R" class="col-sm-1 letter-button">R</div>
 					</div>
 					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 letter-button">S</div>
-						<div class="col-sm-1 letter-button">T</div>
-						<div class="col-sm-1 letter-button">U</div>
-						<div class="col-sm-1 letter-button">V</div>
-						<div class="col-sm-1 letter-button">W</div>
-						<div class="col-sm-1 letter-button">X</div>
-						<div class="col-sm-1 letter-button">Y</div>
-						<div class="col-sm-1 letter-button">Z</div>
+						<div data-letter="S" class="col-sm-1 letter-button">S</div>
+						<div data-letter="T" class="col-sm-1 letter-button">T</div>
+						<div data-letter="U" class="col-sm-1 letter-button">U</div>
+						<div data-letter="V" class="col-sm-1 letter-button">V</div>
+						<div data-letter="W" class="col-sm-1 letter-button">W</div>
+						<div data-letter="X" class="col-sm-1 letter-button">X</div>
+						<div data-letter="Y" class="col-sm-1 letter-button">Y</div>
+						<div data-letter="Z" class="col-sm-1 letter-button">Z</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="alphabet-footer-wrapper">
-			
+			<div id="alphabet-footer">
+				<div class="container">
+					<div class="row justify-content-sm-center">
+						<div class="col-sm-2">
+							<button type="button" class="btn btn-primary guess">Guess</button>
+						</div>
+						<div class="col-sm-2">
+							<div class="truns-left">Turns to spin:</div>
+						</div>
+						<div class="col-sm-2">
+							<div id="spin-button">
+								<button type="button" class="btn btn-success spin active">Spin</button>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div id="balance">Money: $0</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div id="wheel-wrapper">
 			<div id="wheel">
 				<img id="wheel-img" src="images/wheel.png" alt="you lose">
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="js/cookies.js"></script>
+		<script src="js/index.js"></script>
 	</body>
 </html>

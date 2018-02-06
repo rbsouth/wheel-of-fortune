@@ -15,11 +15,28 @@ body {
   border: solid darkslategrey;
   border-radius: 8px
 }
+.letter-display{
+	background-color: white;
+	text-indent: -9999px;
+	height: 70px;
+  width: 75px;
+  border: solid darkslategrey;
+  border-radius: 8px;
+}
 #screen-footer{
 	text-align: center;
 }
 #hint{
 	background: red;
+}
+.modal-header{
+  background: royalblue;
+}
+.modal-body {
+  background: white;
+}
+.modal-footer{
+	background: royalblue;
 }
 #wheel {
   height: 400px;
@@ -34,5 +51,23 @@ body {
 }
 .letter-button{
 	color: white;
+	cursor: pointer;
 	background-color: black;
+}
+#balance{
+	font-size: 30px;
+	background: white;
+}
+#spin-button{
+	margin-top: 5px;
+}
+.guess{
+  height: 38px;
+  margin-top: 5px;
+}
+.inactive{
+	background: lightgrey;
+}
+.inactive:hover{
+	background: lightgrey;
 }
