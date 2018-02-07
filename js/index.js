@@ -41,7 +41,7 @@ class Wheel{
 		var total = Cookies.get('total-money');
 		this.totalMoney = total ? JSON.parse(total) : 1000;
 		var turns = Cookies.get('turns');
-		this.turnsTaken = turns ? JSON.parse(turns) : 0
+		this.turnsTaken = turns ? JSON.parse(turns) : 0;
 	}
 	selectAmount(){
 		var random_amount = this.moneyAmounts[Math.floor(Math.random() * this.moneyAmounts.length)];
@@ -76,14 +76,16 @@ class Wheel{
 			}
 	}
 	changeTurns(){
+		var turns = Cookies.get('turns');
+		this.turnsTaken = turns ? JSON.parse(turns) : 0;
 		if (this.turnsTaken > 5){
-			$('.active').removeClass("inactive").addClass("active");
+			$('.active').removeClass("active").addClass("inactive");
 			Cookies.set('turns', '0');
-			} else{
+			} else {
 					this.turnsTaken++
 					Cookies.set('turns', JSON.stringify(this.turnsTaken));
 			}
-			$('.turns-left').html('Turns to spin: ' + 5 - this.turnsTaken +'')
+			$('.turns-left').html('Turns to spin: ' + (5 - this.turnsTaken) +'');
 	}
 }
 
@@ -113,7 +115,7 @@ $(function(){
 		}
 	});
 
-	var guess_button = $('.guess')
+	var guess_button = $('.guess');
 	guess_button.on('click', function(){
 		screen.guessPhrase();
 		wheel.setTotalAmount();
