@@ -2,16 +2,15 @@ class Screen{
 	constructor(){
 		this.phrases = [['LEBRON JAMES', 'hint: king'], ['KEVIN DURANT', 'hint: snake'], ['CARMELO ANTHONY', 'hint: hoodie'], ['JIMMY BUTLER', 'hint: buckets']];
 		this.currentPhrase = '';
-		this.round = 0
+		this.round = 0;
 	}
 	setPhrase(){
 		this.round++
-		$('#round-count').html("Round:" + this.round)
+		$('#round-count').html("Round:" + this.round);
 		this.currentPhrase = this.phrases[this.round -1];
 		$('.phrase-row').empty();
-		$('#hint').html(this.currentPhrase[1])
+		$('#hint').html(this.currentPhrase[1]);
 		for (var i = 0; i < this.currentPhrase[0].length; i++) {
-			console.log(this.currentPhrase[i]);
 			$('.phrase-row').append('<div id="' + this.currentPhrase[0][i] + '" data-letter="' + this.currentPhrase[0][i] + '" class="col-sm-1 letter-display">' + this.currentPhrase[0][i] + '</div>');
 			//$('.letter-space').each(("", "white");
 			//'<p data-letter="' + this.currentPhrase[0][i] + '">' + this.currentPhrase[i] + '</p>'
@@ -54,7 +53,7 @@ class Wheel{
 			this.totalMoney = Cookies.set('total-money', JSON.stringify(0));
 			alert("Bankrupt!");
 		} else {
-				this.totalMoney =	random_amount + this.totalMoney
+				this.totalMoney =	random_amount + this.totalMoney;
 				Cookies.set('total-money', JSON.stringify(this.totalMoney));
 			}
 	}
@@ -82,20 +81,15 @@ class Wheel{
 	}
 	changeTurns(){
 		var turns = Cookies.get('turns');
-		console.log(turns = Cookies.get('turns'));
 		this.turnsTaken = turns ? JSON.parse(turns) : 0;
 		if (this.turnsTaken > 5){
 			$('.active').removeClass("active").addClass("inactive");
-			console.log($('.active'));
 			Cookies.set('turns', '0');
-			console.log(Cookies.set('turns', '0'));
 			} else {
 					this.turnsTaken++
-					console.log(this.turnsTaken);
 					Cookies.set('turns', JSON.stringify(this.turnsTaken));
 			}
 			$('.turns-left').html('Turns to spin: ' + (5 - this.turnsTaken) +'');
-			console.log($('.turns-left'));
 	}
 }
 
