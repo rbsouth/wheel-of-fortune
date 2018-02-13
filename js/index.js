@@ -21,8 +21,13 @@ class Screen{
 			if ($(this).data('letter') === letter) {
 				$(this).css("text-indent", "0px");
 				$(this).css("background", "green");
+				$(this).addClass('guessed')
 			}
 		});
+		if (this.checkPhrase()){
+			alert("You win this round.");
+			this.setPhrase();
+		}
 	}
 	guessPhrase(){
 		var make_guess = prompt("Turn on caps lock. Make your guess.", "");
@@ -30,13 +35,22 @@ class Screen{
 	    alert("You are correct!");
 	    Cookies.set('total-money', "1000000");
 		} else if (make_guess === null) {
-				alert("Coward");
-				}	else {
-			    alert("WRONG!");
-			    Cookies.set('total-money', "-1000000");
+			alert("Coward");
+		}	else {
+	    alert("WRONG!");
+	    Cookies.set('total-money', "-1000000");
 		}
 	}
-	
+	checkPhrase(){
+		let didWin = true;
+		$('.letter-display').each(function(){
+			if ($(this).data('letter') !== " " && !$(this).hasClass('guessed')) {
+				didWin = false;
+				return false;
+			}
+		});
+		return didWin;
+	}
 }
 
 class Wheel{
@@ -75,21 +89,21 @@ class Wheel{
 			Cookies.set('total-money', '1000');
 			$('html').empty();
 		} else if (this.totalMoney >= 5000){
-				alert("You Win! Give us your credit card information for a new car!");
-				Cookies.set('total-money', '1000');
-			}
+			alert("You Win! Give us your credit card information for a new car!");
+			Cookies.set('total-money', '1000');
+		}
 	}
 	changeTurns(){
 		var turns = Cookies.get('turns');
 		this.turnsTaken = turns ? JSON.parse(turns) : 0;
-		if (this.turnsTaken > 5){
-			$('.active').removeClass("active").addClass("inactive");
+		if (this.turnsTaken >= 5){
+			$('.inactive').removeClass("inactive").addClass("active");
 			Cookies.set('turns', '0');
-			} else {
-					this.turnsTaken++
-					Cookies.set('turns', JSON.stringify(this.turnsTaken));
-			}
-			$('.turns-left').html('Turns to spin: ' + (5 - this.turnsTaken) +'');
+		} else {
+			this.turnsTaken++
+			Cookies.set('turns', JSON.stringify(this.turnsTaken));
+		}
+		$('.turns-left').html('Turns to spin: ' + (5 - this.turnsTaken) +'');
 	}
 }
 
@@ -104,6 +118,9 @@ $(function(){
 	var letter_button = $('.letter-button');
 	letter_button.on('click', function(){
 		screen.checkLetter($(this).data('letter'));
+		if (screen.checkPhrase() === true){
+			setPhrase();
+		}
 		wheel.subtractForGuess();
 		wheel.setTotalAmount();
 		wheel.checkAmount();
