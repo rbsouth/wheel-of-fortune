@@ -1,15 +1,20 @@
 class Screen{
 	constructor(){
-		this.phrases = ['YOU ARE COOL', 'YEAH I AM'];
+		this.phrases = [['LEBRON JAMES', 'hint: king'], ['KEVIN DURANT', 'hint: snake'], ['CARMELO ANTHONY', 'hint: hoodie'], ['JIMMY BUTLER', 'hint: buckets']];
 		this.currentPhrase = '';
+		this.round = 0
 	}
 	setPhrase(){
-		this.currentPhrase = this.phrases[Math.floor(Math.random() * this.phrases.length)];
-		for (var i = 0; i < this.currentPhrase.length; i++) {
+		this.round++
+		$('#round-count').html("Round:" + this.round)
+		this.currentPhrase = this.phrases[this.round -1];
+		$('.phrase-row').empty();
+		$('#hint').html(this.currentPhrase[1])
+		for (var i = 0; i < this.currentPhrase[0].length; i++) {
 			console.log(this.currentPhrase[i]);
-			$('.phrase-row').append('<div id="' + this.currentPhrase[i] + '" data-letter="' + this.currentPhrase[i] + '" class="col-sm-1 letter-display">' + this.currentPhrase[i] + '</div>');
+			$('.phrase-row').append('<div id="' + this.currentPhrase[0][i] + '" data-letter="' + this.currentPhrase[0][i] + '" class="col-sm-1 letter-display">' + this.currentPhrase[0][i] + '</div>');
 			//$('.letter-space').each(("", "white");
-			//'<p data-letter="' + this.currentPhrase[i] + '">' + this.currentPhrase[i] + '</p>'
+			//'<p data-letter="' + this.currentPhrase[0][i] + '">' + this.currentPhrase[i] + '</p>'
 		}
 	}
 	checkLetter(letter){
@@ -22,10 +27,10 @@ class Screen{
 	}
 	guessPhrase(){
 		var make_guess = prompt("Turn on caps lock. Make your guess.", "");
-		if (make_guess == this.currentPhrase) {
+		if (make_guess === this.currentPhrase) {
 	    alert("You are correct!");
 	    Cookies.set('total-money', "1000000");
-		} else if (make_guess == null) {
+		} else if (make_guess === null) {
 				alert("Coward");
 				}	else {
 			    alert("WRONG!");
@@ -37,7 +42,7 @@ class Screen{
 
 class Wheel{
 	constructor(){
-		this.moneyAmounts = [0, 'bankrupt', 200, 300, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 5000]; //cookies to save
+		this.moneyAmounts = [0, 'bankrupt', 200, 300, 300, 400, 450, 450, 500, 550, 600, 650, 650, 700, 750, 800, 800, 900, 5000]; //cookies to save
 		var total = Cookies.get('total-money');
 		this.totalMoney = total ? JSON.parse(total) : 1000;
 		var turns = Cookies.get('turns');
@@ -77,17 +82,23 @@ class Wheel{
 	}
 	changeTurns(){
 		var turns = Cookies.get('turns');
+		console.log(turns = Cookies.get('turns'));
 		this.turnsTaken = turns ? JSON.parse(turns) : 0;
 		if (this.turnsTaken > 5){
 			$('.active').removeClass("active").addClass("inactive");
+			console.log($('.active'));
 			Cookies.set('turns', '0');
+			console.log(Cookies.set('turns', '0'));
 			} else {
 					this.turnsTaken++
+					console.log(this.turnsTaken);
 					Cookies.set('turns', JSON.stringify(this.turnsTaken));
 			}
 			$('.turns-left').html('Turns to spin: ' + (5 - this.turnsTaken) +'');
+			console.log($('.turns-left'));
 	}
 }
+
 
 $(function(){
 	var screen = new Screen();
@@ -120,6 +131,11 @@ $(function(){
 		screen.guessPhrase();
 		wheel.setTotalAmount();
 		wheel.checkAmount();
+		screen.setPhrase();
 	});
-		
+	var next = $('#next-round')
+	next.on('click', function(){
+		screen.setPhrase();
+		screen.checkLetter(' ');
+	});
 });
