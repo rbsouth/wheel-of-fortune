@@ -7,91 +7,40 @@
 		<title>Wheel of Fortune</title>
 	</head>
 	<body>
-		<h1>Wheel of fortune</h1>
+		<h1 id="wheel-title">Wheel of fortune</h1>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Rules
-</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+		  Rules
+		</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Wheel of fortune</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Green squares are spaces or solved.
-        Get $5000 to win.
-        Drop below $0, you lose. 
-        You may spin once every 5 guesses.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-		<!-- <div id="screen-wrapper">
-			<div id="screen">
-				<div class="container screen-container">
-					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-					</div>
-					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-					</div>
-					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-					</div>
-					<div class="row justify-content-sm-center">
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-						<div class="col-sm-1 screen-item"></div>
-					</div>
-				</div>
-			</div>
-		</div> -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Wheel of fortune</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        Green squares are spaces or solved.
+		        Get $5000 to win.
+		        Drop below $0, you lose.
+		        Spin for extra cash.
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Phrase Display -->
+		<div id="round-count">Round:</div>
 		<div id="phrase-display">
 			<div class="container">
-				<div class="row justify-content-sm-center phrase-row">
-					
-				</div>
+				<div class="row justify-content-sm-center phrase-row"></div>
 			</div>
 		</div>
 		<div id="screen-footer-wrapper">
@@ -99,6 +48,7 @@
 				<h4 id="hint">Hint:</h4>
 			</div>
 		</div>
+		<!-- Guess Alphabet -->
 		<div id="alphabet-wrapper">
 			<div id="alphabet">
 				<div class="container">
@@ -137,6 +87,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- footer for buttons and money display -->
 		<div id="alphabet-footer-wrapper">
 			<div id="alphabet-footer">
 				<div class="container">
@@ -145,7 +96,7 @@
 							<button type="button" class="btn btn-primary guess">Guess</button>
 						</div>
 						<div class="col-sm-2">
-							<div class="truns-left">Turns to spin:</div>
+							<button id="next-round" type="button" class="btn btn-primary">Next Round</button>
 						</div>
 						<div class="col-sm-2">
 							<div id="spin-button">

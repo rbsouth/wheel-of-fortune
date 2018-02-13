@@ -5,6 +5,13 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+#wheel-title{
+  color: white;
+}
+#round-count{
+  text-align: center;
+  color: green;
+}
 .screen-container{
 	background: #030371;
 }
@@ -13,7 +20,7 @@ body {
 	height: 70px;
 	width: 75px;
   border: solid darkslategrey;
-  border-radius: 8px
+  border-radius: 8px;
 }
 .letter-display{
 	background-color: white;
@@ -28,6 +35,9 @@ body {
 }
 #hint{
 	background: red;
+}
+#next-round{
+  margin-top: 5px;
 }
 .modal-header{
   background: royalblue;
